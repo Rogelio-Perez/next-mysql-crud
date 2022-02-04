@@ -1,7 +1,13 @@
 import React from "react"
 
+import { ProductForm } from "../components/ProductForm"
+
 function HomePage() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>
+  return (
+    <div>
+      <ProductForm />
+    </div>
+  )
 }
 
 export default HomePage
