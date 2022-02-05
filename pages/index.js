@@ -1,22 +1,25 @@
 import axios from "axios"
 import { Layout } from "../components/Layout"
-import Link from "next/link"
+import { ProductCard } from "../components/ProductCard"
 
 function HomePage({ products }) {
-  console.log(products)
+  const renderProducts = () => {
+    if (products.length === 0)
+      return (
+        <h1 className="text-center text-2xl font-bold text-gray-400">
+          No Products Yet
+        </h1>
+      )
+    return products.map((product) => (
+      <ProductCard key={product.id} product={product} />
+    ))
+  }
+
   return (
     <Layout>
-      {products.map((product) => (
-        <Link href={`/products/${product.id}`} key={product.id}>
-          <a>
-            <div className="border border-gray-200 shadow-md p-6">
-              <h1>{product.name}</h1>
-              <p>{product.description}</p>
-              <p>{product.price}</p>
-            </div>
-          </a>
-        </Link>
-      ))}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {renderProducts()}
+      </div>
     </Layout>
   )
 }

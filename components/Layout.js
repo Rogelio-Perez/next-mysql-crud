@@ -1,14 +1,17 @@
 import { ToastContainer } from "react-toastify"
+import { Footer } from "./Footer"
+import { Navbar } from "./Navbar"
 
 export function Layout({ children }) {
   return (
     <>
-      <h1>Navbar</h1>
+      <Navbar />
 
-      <div className="bg-gray-100 h-screen p-10">
+      <div className="bg-gray-100 h-full p-10">
         <div className="container mx-auto h-full">{children}</div>
       </div>
       <ToastContainer />
+      <Footer />
     </>
   )
 }
