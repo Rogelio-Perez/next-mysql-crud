@@ -10,21 +10,27 @@ export default async function handler(req, res) {
 }
 
 const getProrducts = async (req, res) => {
-  const [result] = await pool.query("SELECT * FROM product")
-  console.log(result)
-
-  return res.status(200).json(result)
+  try {
+    const [result] = await pool.query("SELECT * FROM product")
+    return res.status(200).json(result)
+  } catch (error) {
+    return res.status(500).json({ error })
+  }
 }
 
 const saveProduct = async (req, res) => {
-  const { name, description, price } = req.body
+  try {
+    const { name, description, price } = req.body
+    const [result] = await pool.query("INSERT INTO product SET ?", {
+      name,
+      description,
+      price,
+    })
 
-  const [result] = await pool.query("INSERT INTO product SET ?", {
-    name,
-    description,
-    price,
-  })
-
-  console.log(result)
-  return res.status(200).json({ name, price, description, id: result.insertId })
+    return res
+      .status(200)
+      .json({ name, price, description, id: result.insertId })
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
 }

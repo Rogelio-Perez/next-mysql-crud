@@ -1,13 +1,18 @@
 import axios from "axios"
 import { Layout } from "../../components/Layout"
 import { useRouter } from "next/router"
+import { toast } from "react-toastify"
 
 function ProductPage({ product }) {
   const router = useRouter()
 
   const handleDelete = async (id) => {
-    await axios.delete("/api/products/" + id)
-    router.push("/")
+    try {
+      await axios.delete("/api/products/" + id)
+      router.push("/")
+    } catch (error) {
+      toast.error(error.response.data.message)
+    }
   }
 
   return (
